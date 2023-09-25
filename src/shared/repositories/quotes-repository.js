@@ -1,26 +1,22 @@
 const Quote = require('../../config/mongo/models/quoteModel')
 
-function saveProduct(quote) {
+function saveQuote(quote) {
     return quote.save()
 }
  
-function createProduct(
+function createQuote(
     name,
-    code,
     date,
     image,
-    desiredQty,
+    user,
     price,
-    checked,
 ) {
     const newProduct = new Quote({
         name,
-        code,
         date,
         image,
-        desiredQty,
+        user,
         price,
-        checked,
     })
 
     return saveProduct(newProduct)
@@ -31,7 +27,7 @@ function getQuotes() {
 }
 
 module.exports = {
-    saveProduct,
-    createProduct,
+    saveQuote,
+    createQuote,
     getQuotes
 }

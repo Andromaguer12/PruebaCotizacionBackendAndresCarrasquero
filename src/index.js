@@ -4,7 +4,9 @@ const { AllEndPoints } = require('./routes/endpoints.index')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
 const configs = require('./config/configs')
-const initConnection = require('./config/mongo/mongooseConnection')
+const initConnection = require('./config/mongo/mongooseConnection');
+const { getQuotes } = require('./constants/routes/constants');
+const { getQuotesController } = require('./controllers/quotes-controller');
 
 const executeServer = () => {
   const app = express();
@@ -23,14 +25,14 @@ const executeServer = () => {
   app.use(express.json());
 
   // routes
-  AllEndPoints.forEach((ep) => {
-    app.use(ep.rootUrl, ep.module);
-  });
+  // AllEndPoints.forEach((ep) => {
+    // });
+  app.get('/api/get-quotes', getQuotesController);
 
   // connection to mongodb data base
   const URI = configs().MONGODB.URI;
-  console.log(URI)
-  initConnection(URI);
+  // console.log(URI)
+  // initConnection(URI);
 
   // execute port
   const PORT = process.env.PORT || 8080;
